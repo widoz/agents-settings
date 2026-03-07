@@ -13,6 +13,9 @@
     "oracle": {
       "model": "anthropic/claude-opus-4-6"
     },
+    "metis": {
+      "model": "anthropic/claude-opus-4-6"
+    },
     "prometheus": {
       "model": "anthropic/claude-opus-4-6"
     },
