@@ -6,12 +6,10 @@
     "glob": "allow",
     "grep": "allow",
     "edit": {
-      "*": "ask",
-      "**": "allow"
+      "*": "allow"
     },
     "write": {
-      "*": "ask",
-      "**": "allow"
+      "*": "allow"
     },
     "bash": {
       "*": "ask",
@@ -26,7 +24,9 @@
       "wipe *": "deny",
       "unlink *": "deny",
       "truncate *": "deny"
-    }
+    },
+    "webfetch": "allow",
+    "websearch": "allow"
   },
   "plugin": [
     "oh-my-opencode@latest"
