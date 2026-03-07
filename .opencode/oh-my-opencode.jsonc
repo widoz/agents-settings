@@ -16,6 +16,9 @@
     "metis": {
       "model": "anthropic/claude-opus-4-6"
     },
+    "momus": {
+      "model": "github-copilot/gpt-5-2"
+    },
     "prometheus": {
       "model": "anthropic/claude-opus-4-6"
     },
