@@ -1,0 +1,59 @@
+{
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true
+  },
+  "model": "opus",
+  "permissions": {
+    "allow": [
+      "Read(*)",
+      "Bash(git *)"
+    ],
+    "deny": [
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "Bash(git push --force-with-lease *)",
+      "Bash(git push --mirror *)",
+      "Bash(git branch -d *)",
+      "Bash(git branch -D *)",
+      "Bash(git branch --delete *)",
+      "Bash(git tag -d *)",
+      "Bash(git tag --delete *)",
+      "Bash(git remote remove *)",
+      "Bash(git remote rm *)",
+      "Bash(git remote set-url *)",
+      "Bash(git reset --hard *)",
+      "Bash(git clean *)",
+      "Bash(git reflog expire *)",
+      "Bash(git reflog delete *)",
+      "Bash(git gc *)",
+      "Bash(git prune *)",
+      "Bash(git filter-branch *)",
+      "Bash(git filter-repo *)",
+
+      "Bash(rm *)",
+      "Bash(rmdir *)",
+      "Bash(shred *)",
+      "Bash(wipe *)",
+      "Bash(unlink *)",
+      "Bash(truncate *)",
+
+      "Bash(sudo *)",
+      "Bash(su *)",
+      "Bash(chmod 777 *)",
+      "Bash(chown *)",
+
+      "Bash(npm uninstall *)",
+      "Bash(pip uninstall *)",
+      "Bash(brew uninstall *)",
+      "Bash(brew remove *)",
+      "Bash(apt remove *)",
+      "Bash(apt-get remove *)",
+      "Bash(apt purge *)",
+      "Bash(apt-get purge *)",
+      "Bash(dnf remove *)",
+      "Bash(dnf erase *)",
+      "Bash(dnf autoremove *)",
+      "Bash(dnf downgrade *)"
+    ]
+  }
+}
