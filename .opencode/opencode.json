@@ -5,6 +5,8 @@
     "read": "allow",
     "glob": "allow",
     "grep": "allow",
+    "echo": "allow",
+    "jq": "allow",
     "edit": {
       "*": "allow"
     },
