@@ -10,7 +10,9 @@
   },
   "permissions": {
     "allow": [
-      "Read(*)",
+      "Read",
+      "WebFetch",
+      "Edit(/**)",
       "Bash(git *)"
     ],
     "ask": [
