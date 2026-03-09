@@ -13,6 +13,10 @@
       "Read(*)",
       "Bash(git *)"
     ],
+    "ask": [
+      "Bash(apt)",
+      "Bash(dnf)"
+    ],
     "deny": [
       "Bash(git push --force *)",
       "Bash(git push -f *)",
@@ -45,20 +49,7 @@
       "Bash(sudo *)",
       "Bash(su *)",
       "Bash(chmod 777 *)",
-      "Bash(chown *)",
-
-      "Bash(npm uninstall *)",
-      "Bash(pip uninstall *)",
-      "Bash(brew uninstall *)",
-      "Bash(brew remove *)",
-      "Bash(apt remove *)",
-      "Bash(apt-get remove *)",
-      "Bash(apt purge *)",
-      "Bash(apt-get purge *)",
-      "Bash(dnf remove *)",
-      "Bash(dnf erase *)",
-      "Bash(dnf autoremove *)",
-      "Bash(dnf downgrade *)"
+      "Bash(chown *)"
     ]
   }
 }
