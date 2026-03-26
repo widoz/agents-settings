@@ -1,32 +1,59 @@
 {
-  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/dev/assets/oh-my-opencode.schema.json",
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "anthropic/claude-opus-4-6"
-    },
-    "librarian": {
-      "model": "github-copilot/claude-haiku-4-5"
-    },
-    "explore": {
-      "model": "github-copilot/claude-haiku-4-5"
+      "model": "anthropic/claude-opus-4-6",
+      "variant": "max"
     },
     "oracle": {
-      "model": "anthropic/claude-opus-4-6"
+      "model": "anthropic/claude-opus-4-6",
+      "variant": "max"
     },
-    "metis": {
-      "model": "anthropic/claude-opus-4-6"
+    "explore": {
+      "model": "anthropic/claude-haiku-4-5"
     },
-    "momus": {
-      "model": "github-copilot/gpt-5-2"
+    "multimodal-looker": {
+      "model": "opencode/gpt-5-nano"
     },
     "prometheus": {
-      "model": "anthropic/claude-opus-4-6"
+      "model": "anthropic/claude-opus-4-6",
+      "variant": "max"
+    },
+    "metis": {
+      "model": "anthropic/claude-opus-4-6",
+      "variant": "max"
+    },
+    "momus": {
+      "model": "anthropic/claude-opus-4-6",
+      "variant": "max"
     },
     "atlas": {
       "model": "anthropic/claude-sonnet-4-6"
     },
-    "hephaestus": {
-      "model": "github-copilot/claude-sonnet-4-6"
+    "sisyphus-junior": {
+      "model": "anthropic/claude-sonnet-4-6"
+    }
+  },
+  "categories": {
+    "visual-engineering": {
+      "model": "anthropic/claude-opus-4-6",
+      "variant": "max"
+    },
+    "ultrabrain": {
+      "model": "anthropic/claude-opus-4-6",
+      "variant": "max"
+    },
+    "quick": {
+      "model": "anthropic/claude-haiku-4-5"
+    },
+    "unspecified-low": {
+      "model": "anthropic/claude-sonnet-4-6"
+    },
+    "unspecified-high": {
+      "model": "anthropic/claude-sonnet-4-6"
+    },
+    "writing": {
+      "model": "anthropic/claude-sonnet-4-6"
     }
   }
 }
