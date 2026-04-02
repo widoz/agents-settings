@@ -15,11 +15,20 @@ if git -C "$cwd" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
              || git -C "$cwd" -c core.hooksPath=/dev/null rev-parse --short HEAD 2>/dev/null)
 fi
 
+# Worktree info
+wt_name=$(echo "$input" | jq -r '.worktree.name // empty')
+wt_path=$(echo "$input" | jq -r '.worktree.path // empty')
+
 # Build line 1
 if [ -n "$branch" ]; then
     line1=$(printf "\033[36m[%s]\033[0m | 📁 \033[33m%s\033[0m | \033[32m\xee\x82\xa0 %s\033[0m" "$model" "$folder" "$branch")
 else
     line1=$(printf "\033[36m[%s]\033[0m | 📁 \033[33m%s\033[0m" "$model" "$folder")
+fi
+
+if [ -n "$wt_name" ] || [ -n "$wt_path" ]; then
+    wt_seg=$(printf "\033[35m⎇ %s\033[0m \033[90m%s\033[0m" "$wt_name" "$wt_path")
+    line1="${line1} | ${wt_seg}"
 fi
 
 # --- Line 2: session bar, weekly bar, cost, time-to-reset ---
@@ -113,6 +122,47 @@ if [ "$total_in" != "0" ] || [ "$total_out" != "0" ]; then
     fi
 fi
 
-# Print both lines
+# --- Line 3: context window usage ---
+ctx_pct=$(echo "$input"      | jq -r '.context_window.used_percentage // empty')
+cur_in=$(echo "$input"       | jq -r '.context_window.current_usage.input_tokens // 0')
+cur_out=$(echo "$input"      | jq -r '.context_window.current_usage.output_tokens // 0')
+cache_create=$(echo "$input" | jq -r '.context_window.current_usage.cache_creation_input_tokens // 0')
+cache_read=$(echo "$input"   | jq -r '.context_window.current_usage.cache_read_input_tokens // 0')
+
+line3=""
+
+# Context bar segment
+if [ -n "$ctx_pct" ]; then
+    clr=$(bar_color "$ctx_pct")
+    b=$(bar "$ctx_pct")
+    pct_int=$(printf "%.0f" "$ctx_pct")
+    line3=$(printf "ctx: ${clr}%s\033[0m %s%%" "$b" "$pct_int")
+fi
+
+# Current call tokens segment
+if [ "$cur_in" != "0" ] || [ "$cur_out" != "0" ]; then
+    call_seg=$(printf "\033[90mcall in:%s out:%s\033[0m" "$cur_in" "$cur_out")
+    if [ -n "$line3" ]; then
+        line3="${line3} | ${call_seg}"
+    else
+        line3="${call_seg}"
+    fi
+fi
+
+# Cache tokens segment
+if [ "$cache_create" != "0" ] || [ "$cache_read" != "0" ]; then
+    cache_seg=$(printf "\033[90mcache wr:%s rd:%s\033[0m" "$cache_create" "$cache_read")
+    if [ -n "$line3" ]; then
+        line3="${line3} | ${cache_seg}"
+    else
+        line3="${cache_seg}"
+    fi
+fi
+
+# Print all lines
 printf "%b\n" "$line1"
 [ -n "$line2" ] && printf "%b\n" "$line2"
+if [ -n "$line3" ]; then
+    [ -n "$line2" ] && printf "\n"
+    printf "%b\n" "$line3"
+fi
