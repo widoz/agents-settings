@@ -67,6 +67,7 @@ five_resets=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
 
 # Weekly (7-day) limit
 week_pct=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
+week_resets=$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at // empty')
 
 # Total cost (cumulative tokens as a proxy; use session tokens if cost not available)
 total_in=$(echo "$input"  | jq -r '.context_window.total_input_tokens  // 0')
@@ -84,6 +85,21 @@ if [ -n "$five_resets" ] && [ "$five_resets" != "null" ]; then
         time_remaining=$(printf "%dh%02dm%02ds" "$hh" "$mm" "$ss")
     else
         time_remaining="resetting"
+    fi
+fi
+
+# Time remaining until 7-day reset
+week_time_remaining=""
+if [ -n "$week_resets" ] && [ "$week_resets" != "null" ]; then
+    now=$(date +%s)
+    diff=$(( week_resets - now ))
+    if [ "$diff" -gt 0 ]; then
+        dd=$(( diff / 86400 ))
+        hh=$(( (diff % 86400) / 3600 ))
+        mm=$(( (diff % 3600) / 60 ))
+        week_time_remaining=$(printf "%dd%02dh%02dm" "$dd" "$hh" "$mm")
+    else
+        week_time_remaining="resetting"
     fi
 fi
 
@@ -105,6 +121,7 @@ if [ -n "$week_pct" ]; then
     b=$(bar "$week_pct")
     pct_int=$(printf "%.0f" "$week_pct")
     segment=$(printf "7d: ${clr}%s\033[0m %s%%" "$b" "$pct_int")
+    [ -n "$week_time_remaining" ] && segment="${segment} \033[90m(resets in ${week_time_remaining})\033[0m"
     if [ -n "$line2" ]; then
         line2="${line2} | ${segment}"
     else
